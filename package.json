@@ -1,0 +1,48 @@
+{
+  "name": "babel-plugin-transform-rename-import",
+  "version": "1.0.0",
+  "main": "lib/index",
+  "scripts": {
+    "clean": "rm -rf lib",
+    "build": "babel src/. -d lib/. --ignore=spec.js",
+    "test": "mocha --require babel-register --reporter mocha-tap13 src/**/*.spec.js",
+    "lint": "standard src",
+    "prebuild": "npm run clean",
+    "prepublish": "npm run build"
+  },
+  "author": {
+    "name": "Sigurd Fosseng",
+    "email": "sigurd@fosseng.net",
+    "url": "http://laat.io"
+  },
+  "license": "MIT",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/laat/babel-plugin-transform-rename-import.git"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.4.0",
+    "babel-core": "^6.4.5",
+    "babel-generator": "^6.4.5",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.4.3",
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "mocha-tap13": "^0.0.2",
+    "standard": "^5.4.1"
+  },
+  "files": [
+    "lib"
+  ],
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "dependencies": {
+    "babel-template": "^6.3.13",
+    "babel-traverse": "^6.4.5",
+    "babel-types": "^6.4.5",
+    "babylon": "^6.4.5"
+  }
+}
