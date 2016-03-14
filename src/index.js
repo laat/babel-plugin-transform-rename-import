@@ -1,6 +1,3 @@
-import traverse from 'babel-traverse'
-import template from 'babel-template'
-import * as babylon from 'babylon'
 import * as t from 'babel-types'
 
 export default function visitor ({original, replacement}) {
