@@ -29,7 +29,7 @@
     "babel-traverse": "^6.7.3",
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
-    "mocha-tap13": "^0.0.2",
+    "mocha-tap13": "0.0.3",
     "standard": "^6.0.8"
   },
   "files": [
