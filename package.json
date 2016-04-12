@@ -5,7 +5,9 @@
   "scripts": {
     "clean": "rm -rf lib",
     "build": "babel src/. -d lib/. --ignore=spec.js",
-    "test": "mocha --require babel-register --reporter mocha-tap13 src/**/*.spec.js",
+    "test:spec": "mocha --require babel-register --reporter mocha-tap13 src/**/*.spec.js",
+    "test:readme": "readme-assert --main './src' --require babel-register",
+    "test": "npm run test:readme && npm run test:spec",
     "lint": "standard src/**/*.js",
     "prebuild": "npm run clean",
     "prepublish": "npm run build"
@@ -30,6 +32,7 @@
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
     "mocha-tap13": "0.0.3",
+    "readme-assert": "^2.1.2",
     "standard": "^6.0.8"
   },
   "files": [

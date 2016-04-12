@@ -1,5 +1,5 @@
 /*global describe, it */
-import commentVisitor from './index.js'
+import visitor from './index.js'
 import traverse from 'babel-traverse'
 import generate from 'babel-generator'
 import { transform } from 'babel-core'
@@ -7,7 +7,7 @@ import { expect } from 'chai'
 
 function testGeneration (code, expectedCode) {
   const { ast } = transform(code)
-  traverse(ast, commentVisitor({
+  traverse(ast, visitor({
     replacement: '.',
     original: 'foobar'
   }).visitor)
