@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-rename-import",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "lib/index",
   "scripts": {
     "clean": "rm -rf lib",
