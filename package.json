@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-rename-import",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Replace import sources",
   "main": "lib/index",
   "scripts": {
