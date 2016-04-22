@@ -8,7 +8,7 @@
     "build": "babel src/. -d lib/. --ignore=spec.js",
     "test:spec": "mocha --require babel-register --reporter mocha-tap13 src/**/*.spec.js",
     "test:readme": "readme-assert --main './src' --require babel-register",
-    "test": "npm run test:readme && npm run test:spec",
+    "test": "npm-run-all -p lint jscs test:*",
     "lint": "eslint src",
     "jscs": "jscs src",
     "prebuild": "npm run clean",
@@ -38,6 +38,7 @@
     "jscs": "^3.0.3",
     "mocha": "^2.3.4",
     "mocha-tap13": "0.0.3",
+    "npm-run-all": "^1.7.0",
     "readme-assert": "^2.1.2",
     "standard": "^6.0.8"
   },
