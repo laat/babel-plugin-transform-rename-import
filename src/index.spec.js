@@ -51,4 +51,16 @@ require('foobar')
 require('.');
 `);
   });
+  it('should support addressing files in module', () => {
+    testGeneration(`
+require('foobar/file')
+`, `
+require('./file');
+`);
+    testGeneration(`
+import foo from 'foobar/file';
+`, `
+import foo from './file';
+`);
+  });
 });

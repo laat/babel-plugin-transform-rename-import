@@ -1,12 +1,23 @@
 /* eslint-disable no-param-reassign */
 import * as t from 'babel-types';
 
+function isModule(value, original) {
+  const pattern = new RegExp(`^(${original}|${original}/.*)$`);
+  return pattern.test(value);
+}
+
+function replace(value, original, replacement) {
+  const pattern = new RegExp(`^${original}`);
+  return value.replace(pattern, replacement);
+}
+
 export default function visitor({ original, replacement }) {
   return {
     visitor: {
       ImportDeclaration(path) {
-        if (original === path.node.source.value) {
-          path.node.source = t.stringLiteral(replacement);
+        const value = path.node.source.value;
+        if (isModule(value, original)) {
+          path.node.source = t.stringLiteral(replace(value, original, replacement));
         }
       },
 
@@ -15,8 +26,9 @@ export default function visitor({ original, replacement }) {
         if (node.callee.name === 'require' &&
             node.arguments && node.arguments.length === 1 &&
             t.isStringLiteral(node.arguments[0]) &&
-            node.arguments[0].value === original) {
-          path.node.arguments = [t.stringLiteral(replacement)];
+            isModule(node.arguments[0].value, original)) {
+          const value = node.arguments[0].value;
+          path.node.arguments = [t.stringLiteral(replace(value, original, replacement))];
         }
       },
     },

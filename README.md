@@ -35,6 +35,9 @@ replace("require('foo')", 'foo', 'bar')
 
 replace("import foo from 'foo'", 'foo', 'bar')
 //=> "import foo from 'bar';"
+
+replace("require('foo/thingy')", 'foo', 'bar')
+//=> "require('bar/thingy');"
 ```
 
 ## License
