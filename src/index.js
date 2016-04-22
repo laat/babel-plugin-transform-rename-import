@@ -12,12 +12,13 @@ function replace(value, original, replacement) {
 }
 
 export default function visitor({ original, replacement }) {
+  const source = (value) => t.stringLiteral(replace(value, original, replacement));
   return {
     visitor: {
       ImportDeclaration(path) {
         const value = path.node.source.value;
         if (isModule(value, original)) {
-          path.node.source = t.stringLiteral(replace(value, original, replacement));
+          path.node.source = source(value);
         }
       },
 
@@ -27,8 +28,7 @@ export default function visitor({ original, replacement }) {
             node.arguments && node.arguments.length === 1 &&
             t.isStringLiteral(node.arguments[0]) &&
             isModule(node.arguments[0].value, original)) {
-          const value = node.arguments[0].value;
-          path.node.arguments = [t.stringLiteral(replace(value, original, replacement))];
+          path.node.arguments = [source(node.arguments[0].value)];
         }
       },
     },
