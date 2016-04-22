@@ -33,13 +33,13 @@
     "babel-traverse": "^6.7.3",
     "chai": "^3.4.1",
     "eslint": "^2.8.0",
-    "eslint-config-airbnb": "^7.0.0",
+    "eslint-config-airbnb-base": "^1.0.0",
     "eslint-plugin-import": "^1.5.0",
     "jscs": "^3.0.3",
     "mocha": "^2.3.4",
     "mocha-tap13": "0.0.3",
     "npm-run-all": "^1.7.0",
-    "readme-assert": "^2.1.2",
+    "readme-assert": "^3.1.1",
     "standard": "^6.0.8"
   },
   "files": [
