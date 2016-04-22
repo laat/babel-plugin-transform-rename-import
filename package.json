@@ -8,9 +8,8 @@
     "build": "babel src/. -d lib/. --ignore=spec.js",
     "test:spec": "mocha --require babel-register --reporter mocha-tap13 src/**/*.spec.js",
     "test:readme": "readme-assert --main './src' --require babel-register",
-    "test": "npm-run-all -p lint jscs test:*",
+    "test": "npm-run-all -p lint test:*",
     "lint": "eslint src",
-    "jscs": "jscs src",
     "prebuild": "npm run clean",
     "prepublish": "npm run build"
   },
@@ -35,7 +34,6 @@
     "eslint": "^2.8.0",
     "eslint-config-airbnb-base": "^1.0.0",
     "eslint-plugin-import": "^1.5.0",
-    "jscs": "^3.0.3",
     "mocha": "^2.3.4",
     "mocha-tap13": "0.0.3",
     "npm-run-all": "^1.7.0",
