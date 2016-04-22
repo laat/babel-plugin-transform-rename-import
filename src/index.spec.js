@@ -3,64 +3,53 @@ import visitor from './index.js';
 import traverse from 'babel-traverse';
 import generate from 'babel-generator';
 import { transform } from 'babel-core';
-import { expect } from 'chai';
+import test from 'tape';
 
-function testGeneration(code, expectedCode) {
-  const { ast } = transform(code);
-  traverse(ast, visitor({
-    replacement: '.',
-    original: 'foobar',
-  }).visitor);
-  const transformedCode = generate(ast, {}, code).code;
-  expect(transformedCode.trim()).to.equal(expectedCode.trim());
-}
+test('rename import', (t) => {
+  const testGeneration = (message, code, expectedCode) => {
+    const { ast } = transform(code);
+    traverse(ast, visitor({
+      replacement: '.',
+      original: 'foobar',
+    }).visitor);
+    const transformedCode = generate(ast, {}, code).code;
+    t.equal(transformedCode.trim(), expectedCode.trim(), message);
+  };
 
-describe('Babel replace import', () => {
-  it('should replace normal imports', () => {
-    testGeneration(`
+  testGeneration('replace normal imports', `
 import foo from 'foobar';
 `, `
 import foo from '.';
 `);
-  });
-  it('should replace * imports', () => {
-    testGeneration(`
+  testGeneration('replace * imports', `
 import * as foo from 'foobar';
 `, `
 import * as foo from '.';
 `);
-  });
-  it('should replace {} imports', () => {
-    testGeneration(`
+  testGeneration('replace {} imports', `
 import { foo } from 'foobar';
 `, `
 import { foo } from '.';
 `);
-  });
-  it('should replace {default as foobar} imports', () => {
-    testGeneration(`
+  testGeneration('replace {default as foobar} imports', `
 import { default as foobar } from 'foobar';
 `, `
 import { default as foobar } from '.';
 `);
-  });
-  it('should replace require', () => {
-    testGeneration(`
+  testGeneration('replace require', `
 require('foobar')
 `, `
 require('.');
 `);
-  });
-  it('should support addressing files in module', () => {
-    testGeneration(`
-require('foobar/file')
+  testGeneration('support addressing files in module', `
+require('foobar/file');
 `, `
 require('./file');
 `);
-    testGeneration(`
+  testGeneration('support importing of files within a module', `
 import foo from 'foobar/file';
 `, `
 import foo from './file';
 `);
-  });
+  t.end();
 });
