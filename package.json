@@ -32,7 +32,7 @@
     "eslint-config-airbnb-base": "^1.0.0",
     "eslint-plugin-import": "^1.5.0",
     "npm-run-all": "^1.7.0",
-    "readme-assert": "^3.1.1",
+    "readme-assert": "^4.0.1",
     "tape": "^4.5.1"
   },
   "files": [
