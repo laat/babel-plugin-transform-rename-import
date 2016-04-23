@@ -5,7 +5,7 @@
   "main": "lib/index",
   "scripts": {
     "build": "babel src/. -d lib/. --ignore=spec.js",
-    "test:spec": "tape --require babel-register 'src/**/*.spec.js'",
+    "test:spec": "babel-node src/index.spec.js",
     "test:readme": "readme-assert --main './src' --require babel-register",
     "test": "npm-run-all lint test:*",
     "lint": "eslint src",
@@ -22,6 +22,7 @@
     "url": "https://github.com/laat/babel-plugin-transform-rename-import.git"
   },
   "devDependencies": {
+    "assert-simple-tap": "^1.0.2",
     "babel-cli": "^6.4.0",
     "babel-core": "^6.4.5",
     "babel-generator": "^6.7.2",
@@ -32,8 +33,7 @@
     "eslint-config-airbnb-base": "^1.0.0",
     "eslint-plugin-import": "^1.5.0",
     "npm-run-all": "^1.7.0",
-    "readme-assert": "^4.0.1",
-    "tape": "^4.5.1"
+    "readme-assert": "^4.0.1"
   },
   "files": [
     "lib"
