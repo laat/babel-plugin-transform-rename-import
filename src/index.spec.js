@@ -1,8 +1,8 @@
-import visitor from './index.js';
 import traverse from 'babel-traverse';
 import generate from 'babel-generator';
 import { transform } from 'babel-core';
 import assert from 'assert-simple-tap';
+import visitor from './index.js';
 
 const testGeneration = (message, code, expectedCode) => {
   const { ast } = transform(code);
