@@ -36,10 +36,5 @@
   },
   "files": [
     "lib"
-  ],
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
-  }
+  ]
 }
