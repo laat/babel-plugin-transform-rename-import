@@ -12,18 +12,26 @@
 $ npm install --save babel-plugin-transform-rename-import
 ```
 
-## Usage
+## babelrc
+```js
+{
+  "plugins": [["transform-rename-import", { original: 'assert', replacement: 'power-assert' }]]
+}
+```
+
+## Programatic Usage
 
 ```javascript
-import visitor from 'babel-plugin-transform-rename-import'
-import traverse from 'babel-traverse'
-import generate from 'babel-generator'
+import plugin from 'babel-plugin-transform-rename-import'
 import { transform } from 'babel-core'
 
 function replace (code, original, replacement) {
-  const { ast } = transform(code)
-  traverse(ast, visitor({ replacement, original }).visitor)
-  return generate(ast, {}, code).code.trim()
+  return transform(code, {
+    babelrc: false,
+    plugins: [
+      [plugin, { original, replacement} ],
+    ],
+  }).code;
 }
 
 replace("require('foo')", 'foo', 'bar')
