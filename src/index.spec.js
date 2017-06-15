@@ -1,6 +1,6 @@
 import * as babel from 'babel-core';
 import assert from 'assert-simple-tap';
-import plugin from './index.js';
+import plugin from './index';
 
 const testGeneration = (message, code, expectedCode) => {
   const transformedCode = babel.transform(code, { babelrc: false,
