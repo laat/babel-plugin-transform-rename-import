@@ -52,3 +52,45 @@ import foo from 'foobar/file';
 `, `
 import foo from './file';
 `);
+
+const testMultipleReplacements = (message, code, expectedCode) => {
+  const transformedCode = babel.transform(code, { babelrc: false,
+    plugins: [
+      [plugin, [
+        { replacement: '.', original: 'foobar' },
+        { replacement: 'baz', original: 'bar' },
+      ]],
+    ],
+  }).code;
+  assert.equal(transformedCode.trim(), expectedCode.trim(), message);
+};
+
+testMultipleReplacements('support importing of files within a module', `
+import foo from 'bar';
+require('foobar');
+`, `
+import foo from 'baz';
+require('.');
+`);
+
+const testRegexp = (message, { original, replacement }, code, expectedCode) => {
+  const transformedCode = babel.transform(code, { babelrc: false,
+    plugins: [
+      [plugin, [
+        { replacement, original },
+      ]],
+    ],
+  }).code;
+  assert.equal(transformedCode.trim(), expectedCode.trim(), message);
+};
+
+testRegexp('replaces with RegExp', {
+  original: '^(.+?)\\.less$',
+  replacement: '$1.css',
+}, `
+import css1 from './foo.less';
+const css2 = require('../bar.less');
+`, `
+import css1 from './foo.css';
+const css2 = require('../bar.css');
+`);

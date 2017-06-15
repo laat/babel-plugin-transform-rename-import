@@ -19,6 +19,26 @@ $ npm install --save babel-plugin-transform-rename-import
 }
 ```
 
+or multiple replacements:
+```js
+{
+  "plugins": [
+    ["transform-rename-import", [
+      { original: 'replace-me', replacement: 'replaced' }
+      { original: 'replace-me2', replacement: 'replaced2' }
+    ]
+  ]]
+}
+```
+
+RegExp:
+```js
+{
+  "plugins": [["transform-rename-import", { original: '^(.+?)\\.less$', replacement: '$1.css' }]]
+}
+```
+
+
 ## Programatic Usage
 
 ```javascript
@@ -42,6 +62,9 @@ replace("import foo from 'foo'", 'foo', 'bar')
 
 replace("require('foo/thingy')", 'foo', 'bar')
 //=> "require('bar/thingy');"
+
+replace("require('foo/thingy.less')", '^(.+?)\\.less$', '$1.css')
+//=> "require('foo/thingy.css');"
 ```
 
 ## License
