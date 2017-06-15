@@ -24,7 +24,7 @@ or multiple replacements:
 {
   "plugins": [
     ["transform-rename-import", [
-      { original: 'replace-me', replacement: 'replaced' }
+      { original: 'replace-me', replacement: 'replaced' },
       { original: 'replace-me2', replacement: 'replaced2' }
     ]
   ]]
