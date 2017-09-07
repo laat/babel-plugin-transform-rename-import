@@ -24,7 +24,7 @@ export default function visitor({ types: t }) {
       ImportDeclaration(path, state) {
         const replacements = getReplacements(state);
         replacements.forEach(({ original, replacement }) => {
-          const value = path.node.source.value;
+          const { value } = path.node.source;
           if (isModule(value, original)) {
             path.node.source = source(value, original, replacement);
           }
@@ -34,7 +34,7 @@ export default function visitor({ types: t }) {
       CallExpression(path, state) {
         const replacements = getReplacements(state);
         replacements.forEach(({ original, replacement }) => {
-          const node = path.node;
+          const { node } = path;
           if (
             node.callee.name === "require" &&
             node.arguments &&
