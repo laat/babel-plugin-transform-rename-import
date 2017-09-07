@@ -1,4 +1,4 @@
 {
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base", "prettier"],
   "rules": {"import/no-extraneous-dependencies": 0}
 }

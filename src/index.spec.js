@@ -1,96 +1,133 @@
-import * as babel from 'babel-core';
-import assert from 'assert-simple-tap';
-import plugin from './index';
+import * as babel from "babel-core";
+import assert from "assert-simple-tap";
+import plugin from "./index";
 
 const testGeneration = (message, code, expectedCode) => {
-  const transformedCode = babel.transform(code, { babelrc: false,
-    plugins: [
-      [plugin, { replacement: '.', original: 'foobar' }],
-    ],
+  const transformedCode = babel.transform(code, {
+    babelrc: false,
+    plugins: [[plugin, { replacement: ".", original: "foobar" }]]
   }).code;
   assert.equal(transformedCode.trim(), expectedCode.trim(), message);
 };
 
-testGeneration('replace normal imports', `
+testGeneration(
+  "replace normal imports",
+  `
 import foo from 'foobar';
-`, `
+`,
+  `
 import foo from '.';
-`);
+`
+);
 
-testGeneration('replace * imports', `
+testGeneration(
+  "replace * imports",
+  `
 import * as foo from 'foobar';
-`, `
+`,
+  `
 import * as foo from '.';
-`);
+`
+);
 
-testGeneration('replace {} imports', `
+testGeneration(
+  "replace {} imports",
+  `
 import { foo } from 'foobar';
-`, `
+`,
+  `
 import { foo } from '.';
-`);
+`
+);
 
-testGeneration('replace {default as foobar} imports', `
+testGeneration(
+  "replace {default as foobar} imports",
+  `
 import { default as foobar } from 'foobar';
-`, `
+`,
+  `
 import { default as foobar } from '.';
-`);
+`
+);
 
-testGeneration('replace require', `
+testGeneration(
+  "replace require",
+  `
 require('foobar')
-`, `
+`,
+  `
 require('.');
-`);
+`
+);
 
-testGeneration('support addressing files in module', `
+testGeneration(
+  "support addressing files in module",
+  `
 require('foobar/file');
-`, `
+`,
+  `
 require('./file');
-`);
+`
+);
 
-testGeneration('support importing of files within a module', `
+testGeneration(
+  "support importing of files within a module",
+  `
 import foo from 'foobar/file';
-`, `
+`,
+  `
 import foo from './file';
-`);
+`
+);
 
 const testMultipleReplacements = (message, code, expectedCode) => {
-  const transformedCode = babel.transform(code, { babelrc: false,
+  const transformedCode = babel.transform(code, {
+    babelrc: false,
     plugins: [
-      [plugin, [
-        { replacement: '.', original: 'foobar' },
-        { replacement: 'baz', original: 'bar' },
-      ]],
-    ],
+      [
+        plugin,
+        [
+          { replacement: ".", original: "foobar" },
+          { replacement: "baz", original: "bar" }
+        ]
+      ]
+    ]
   }).code;
   assert.equal(transformedCode.trim(), expectedCode.trim(), message);
 };
 
-testMultipleReplacements('support importing of files within a module', `
+testMultipleReplacements(
+  "support importing of files within a module",
+  `
 import foo from 'bar';
 require('foobar');
-`, `
+`,
+  `
 import foo from 'baz';
 require('.');
-`);
+`
+);
 
 const testRegexp = (message, { original, replacement }, code, expectedCode) => {
-  const transformedCode = babel.transform(code, { babelrc: false,
-    plugins: [
-      [plugin, [
-        { replacement, original },
-      ]],
-    ],
+  const transformedCode = babel.transform(code, {
+    babelrc: false,
+    plugins: [[plugin, [{ replacement, original }]]]
   }).code;
   assert.equal(transformedCode.trim(), expectedCode.trim(), message);
 };
 
-testRegexp('replaces with RegExp', {
-  original: '^(.+?)\\.less$',
-  replacement: '$1.css',
-}, `
+testRegexp(
+  "replaces with RegExp",
+  {
+    original: "^(.+?)\\.less$",
+    replacement: "$1.css"
+  },
+  `
 import css1 from './foo.less';
 const css2 = require('../bar.less');
-`, `
+`,
+  `
 import css1 from './foo.css';
 const css2 = require('../bar.css');
-`);
+`
+);

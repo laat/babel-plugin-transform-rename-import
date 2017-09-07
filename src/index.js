@@ -35,14 +35,19 @@ export default function visitor({ types: t }) {
         const replacements = getReplacements(state);
         replacements.forEach(({ original, replacement }) => {
           const node = path.node;
-          if (node.callee.name === 'require' &&
-          node.arguments && node.arguments.length === 1 &&
-          t.isStringLiteral(node.arguments[0]) &&
-          isModule(node.arguments[0].value, original)) {
-            path.node.arguments = [source(node.arguments[0].value, original, replacement)];
+          if (
+            node.callee.name === "require" &&
+            node.arguments &&
+            node.arguments.length === 1 &&
+            t.isStringLiteral(node.arguments[0]) &&
+            isModule(node.arguments[0].value, original)
+          ) {
+            path.node.arguments = [
+              source(node.arguments[0].value, original, replacement)
+            ];
           }
         });
-      },
-    },
+      }
+    }
   };
 }

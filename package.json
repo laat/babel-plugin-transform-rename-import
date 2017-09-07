@@ -9,7 +9,8 @@
     "test:readme": "readme-assert --main './src' --require babel-register",
     "test": "npm-run-all lint test:*",
     "lint": "eslint src",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "precommit": "lint-staged"
   },
   "author": {
     "name": "Sigurd Fosseng",
@@ -21,6 +22,9 @@
     "type": "git",
     "url": "https://github.com/laat/babel-plugin-transform-rename-import.git"
   },
+  "lint-staged": {
+    "*.{js,json,css}": ["prettier --write", "git add"]
+  },
   "devDependencies": {
     "assert-simple-tap": "^2.0.1",
     "babel-cli": "^6.4.0",
@@ -30,11 +34,13 @@
     "babel-traverse": "^6.7.3",
     "eslint": "^3.0.0",
     "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-config-prettier": "^2.4.0",
     "eslint-plugin-import": "^2.3.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.1.3",
     "npm-run-all": "^4.0.2",
+    "prettier": "^1.6.1",
     "readme-assert": "^5.0.0"
   },
-  "files": [
-    "lib"
-  ]
+  "files": ["lib"]
 }
