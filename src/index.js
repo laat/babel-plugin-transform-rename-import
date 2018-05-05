@@ -12,6 +12,8 @@ function replace(value, original, replacement) {
 function getReplacements(state) {
   if (state.opts instanceof Array) {
     return state.opts;
+  } else if (state.opts && state.opts.replacements instanceof Array) {
+    return state.opts.replacements;
   }
   return [state.opts];
 }

@@ -23,10 +23,12 @@ or multiple replacements:
 ```js
 {
   "plugins": [
-    ["transform-rename-import", [
-      { original: 'replace-me', replacement: 'replaced' },
-      { original: 'replace-me2', replacement: 'replaced2' }
-    ]
+    ["transform-rename-import", {
+      replacements: [
+        { original: 'replace-me', replacement: 'replaced' },
+        { original: 'replace-me2', replacement: 'replaced2' }
+      ]
+    }
   ]]
 }
 ```

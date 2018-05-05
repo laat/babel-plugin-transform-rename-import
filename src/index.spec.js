@@ -108,6 +108,36 @@ require('.');
 `
 );
 
+const testMultipleReplacementsBabel7 = (message, code, expectedCode) => {
+  const transformedCode = babel.transform(code, {
+    babelrc: false,
+    plugins: [
+      [
+        plugin,
+        {
+          replacements: [
+            { replacement: ".", original: "foobar" },
+            { replacement: "baz", original: "bar" }
+          ]
+        }
+      ]
+    ]
+  }).code;
+  assert.equal(transformedCode.trim(), expectedCode.trim(), message);
+};
+
+testMultipleReplacementsBabel7(
+  "support importing of files within a module",
+  `
+import foo from 'bar';
+require('foobar');
+`,
+  `
+import foo from 'baz';
+require('.');
+`
+);
+
 const testRegexp = (message, { original, replacement }, code, expectedCode) => {
   const transformedCode = babel.transform(code, {
     babelrc: false,
