@@ -80,6 +80,16 @@ import foo from './file';
 `
 );
 
+testGeneration(
+  "support importing inside export statement",
+  `
+export { something } from 'foobar';
+`,
+  `
+export { something } from '.';
+`
+);
+
 const testMultipleReplacements = (message, code, expectedCode) => {
   const transformedCode = babel.transform(code, {
     babelrc: false,

@@ -33,6 +33,16 @@ export default function visitor({ types: t }) {
         });
       },
 
+      ExportDeclaration(path, state) {
+        const replacements = getReplacements(state);
+        replacements.forEach(({ original, replacement }) => {
+          const { node } = path;
+          if (node.source && isModule(node.source.value, original)) {
+            path.node.source = source(node.source.value, original, replacement);
+          }
+        });
+      },
+
       CallExpression(path, state) {
         const replacements = getReplacements(state);
         replacements.forEach(({ original, replacement }) => {
