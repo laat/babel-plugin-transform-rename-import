@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-rename-import",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Replace import sources",
   "main": "lib/index",
   "scripts": {
@@ -23,10 +23,7 @@
     "url": "https://github.com/laat/babel-plugin-transform-rename-import.git"
   },
   "lint-staged": {
-    "*.{js,json,css}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.{js,json,css}": ["prettier --write", "git add"]
   },
   "devDependencies": {
     "assert-simple-tap": "^2.0.1",
@@ -45,7 +42,5 @@
     "prettier": "^1.6.1",
     "readme-assert": "^5.0.0"
   },
-  "files": [
-    "lib"
-  ]
+  "files": ["lib"]
 }
