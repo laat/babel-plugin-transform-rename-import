@@ -7,7 +7,6 @@
     "build": "babel src/. -d lib/. --ignore=spec.js",
     "test:babel6": "node -r @babel/register src/babel6.spec.js",
     "test:babel7": "node -r @babel/register src/babel7.spec.js",
-    "test:readme": "readme-assert  -r @babel/register --main './src' --babel",
     "test": "npm-run-all test:*",
     "prepublish": "npm run build"
   },
@@ -31,8 +30,7 @@
     "assert-simple-tap": "^3.0.0",
     "babel-core": "^6.26.3",
     "npm-run-all": "^4.0.2",
-    "prettier": "^2.0.1",
-    "readme-assert": "^6.0.0"
+    "prettier": "^2.0.1"
   },
   "files": [
     "lib"
