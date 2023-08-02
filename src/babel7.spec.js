@@ -5,7 +5,7 @@ import plugin from "./index";
 const testGeneration = (message, code, expectedCode) => {
   const transformedCode = babel.transform(code, {
     babelrc: false,
-    plugins: [[plugin, { replacement: ".", original: "foobar" }]]
+    plugins: [[plugin, { replacement: ".", original: "foobar" }]],
   }).code;
   assert.equal(transformedCode.trim(), expectedCode.trim(), message);
 };
@@ -17,7 +17,7 @@ import foo from "foobar";
 `,
   `
 import foo from ".";
-`
+`,
 );
 
 testGeneration(
@@ -27,7 +27,7 @@ import * as foo from "foobar";
 `,
   `
 import * as foo from ".";
-`
+`,
 );
 
 testGeneration(
@@ -37,7 +37,7 @@ import { foo } from "foobar";
 `,
   `
 import { foo } from ".";
-`
+`,
 );
 
 testGeneration(
@@ -47,7 +47,7 @@ import { default as foobar } from "foobar";
 `,
   `
 import { default as foobar } from ".";
-`
+`,
 );
 
 testGeneration(
@@ -57,7 +57,7 @@ require("foobar")
 `,
   `
 require(".");
-`
+`,
 );
 
 testGeneration(
@@ -67,7 +67,7 @@ require("foobar/file");
 `,
   `
 require("./file");
-`
+`,
 );
 
 testGeneration(
@@ -77,7 +77,7 @@ import foo from "foobar/file";
 `,
   `
 import foo from "./file";
-`
+`,
 );
 
 testGeneration(
@@ -87,7 +87,7 @@ export { something } from "foobar";
 `,
   `
 export { something } from ".";
-`
+`,
 );
 
 const testMultipleReplacements = (message, code, expectedCode) => {
@@ -99,11 +99,11 @@ const testMultipleReplacements = (message, code, expectedCode) => {
         {
           replacements: [
             { replacement: ".", original: "foobar" },
-            { replacement: "baz", original: "bar" }
-          ]
-        }
-      ]
-    ]
+            { replacement: "baz", original: "bar" },
+          ],
+        },
+      ],
+    ],
   }).code;
   assert.equal(transformedCode.trim(), expectedCode.trim(), message);
 };
@@ -112,14 +112,12 @@ testMultipleReplacements(
   "support importing of files within a module",
   `
 import foo from "bar";
-
 require("foobar");
 `,
   `
 import foo from "baz";
-
 require(".");
-`
+`,
 );
 
 const testMultipleReplacementsBabel7 = (message, code, expectedCode) => {
@@ -131,11 +129,11 @@ const testMultipleReplacementsBabel7 = (message, code, expectedCode) => {
         {
           replacements: [
             { replacement: ".", original: "foobar" },
-            { replacement: "baz", original: "bar" }
-          ]
-        }
-      ]
-    ]
+            { replacement: "baz", original: "bar" },
+          ],
+        },
+      ],
+    ],
   }).code;
   assert.equal(transformedCode.trim(), expectedCode.trim(), message);
 };
@@ -144,20 +142,18 @@ testMultipleReplacementsBabel7(
   "support importing of files within a module",
   `
 import foo from "bar";
-
 require("foobar");
 `,
   `
 import foo from "baz";
-
 require(".");
-`
+`,
 );
 
 const testRegexp = (message, { original, replacement }, code, expectedCode) => {
   const transformedCode = babel.transform(code, {
     babelrc: false,
-    plugins: [[plugin, { replacements: [{ replacement, original }] }]]
+    plugins: [[plugin, { replacements: [{ replacement, original }] }]],
   }).code;
   assert.equal(transformedCode.trim(), expectedCode.trim(), message);
 };
@@ -166,16 +162,14 @@ testRegexp(
   "replaces with RegExp",
   {
     original: "^(.+?)\\.less$",
-    replacement: "$1.css"
+    replacement: "$1.css",
   },
   `
 import css1 from "./foo.less";
-
 const css2 = require("../bar.less");
 `,
   `
 import css1 from "./foo.css";
-
 const css2 = require("../bar.css");
-`
+`,
 );
