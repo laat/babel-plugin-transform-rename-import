@@ -21,7 +21,7 @@
     "url": "https://github.com/laat/babel-plugin-transform-rename-import.git"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
+    "@babel/cli": "^8.0.4",
     "@babel/core": "^7.0.0",
     "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
