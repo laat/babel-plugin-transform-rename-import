@@ -18,7 +18,7 @@ function getReplacements(state) {
   return [state.opts];
 }
 
-export default function visitor({ types: t }) {
+module.exports = function visitor({ types: t }) {
   const source = (value, original, replacement) =>
     t.stringLiteral(replace(value, original, replacement));
   return {
@@ -62,4 +62,7 @@ export default function visitor({ types: t }) {
       }
     }
   };
-}
+};
+
+// the previously published build exposed the plugin on `exports.default` too
+module.exports.default = module.exports;

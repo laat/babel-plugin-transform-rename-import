@@ -11,6 +11,8 @@
 $ npm install --save babel-plugin-transform-rename-import
 ```
 
+Compatible with Babel 6, 7 and 8.
+
 ## babelrc
 
 ```js
@@ -44,12 +46,12 @@ RegExp:
 
 ## Programatic Usage
 
-```javascript test
+```javascript
 import plugin from "babel-plugin-transform-rename-import";
-import { transform } from "@babel/core";
+import { transformSync } from "@babel/core";
 
 function replace(code, original, replacement) {
-  return transform(code, {
+  return transformSync(code, {
     babelrc: false,
     plugins: [[plugin, { original, replacement }]]
   }).code;
