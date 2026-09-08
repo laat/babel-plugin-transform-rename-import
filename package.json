@@ -2,13 +2,12 @@
   "name": "babel-plugin-transform-rename-import",
   "version": "2.3.0",
   "description": "Replace import sources",
-  "main": "lib/index",
+  "main": "src/index.js",
   "scripts": {
-    "build": "babel src/. -d lib/. --ignore=spec.js",
-    "test:babel6": "node -r @babel/register src/babel6.spec.js",
-    "test:babel7": "node -r @babel/register src/babel7.spec.js",
-    "test": "npm-run-all test:*",
-    "prepublish": "npm run build"
+    "test:babel6": "node src/babel6.spec.mjs",
+    "test:babel7": "node src/babel7.spec.mjs",
+    "test:babel8": "node src/babel8.spec.mjs",
+    "test": "npm run test:babel6 && npm run test:babel7 && npm run test:babel8"
   },
   "author": {
     "name": "Sigurd Fosseng",
@@ -21,18 +20,13 @@
     "url": "https://github.com/laat/babel-plugin-transform-rename-import.git"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/node": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/register": "^7.0.0",
-    "@babel/traverse": "^8.0.0",
+    "@babel/core": "^8.0.0",
     "assert-simple-tap": "^3.0.0",
     "babel-core": "^6.26.3",
-    "npm-run-all": "^4.0.2",
+    "babel7": "npm:@babel/core@^7.0.0",
     "prettier": "^3.0.0"
   },
   "files": [
-    "lib"
+    "src/index.js"
   ]
 }

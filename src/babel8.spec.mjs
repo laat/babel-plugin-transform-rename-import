@@ -1,10 +1,11 @@
-import * as babel from "@babel/core";
+import { transformSync } from "@babel/core";
 import assert from "assert-simple-tap";
-import plugin from "./index";
+import plugin from "./index.js";
 
 const testGeneration = (message, code, expectedCode) => {
-  const transformedCode = babel.transform(code, {
+  const transformedCode = transformSync(code, {
     babelrc: false,
+    configFile: false,
     plugins: [[plugin, { replacement: ".", original: "foobar" }]],
   }).code;
   assert.equal(transformedCode.trim(), expectedCode.trim(), message);
@@ -91,8 +92,9 @@ export { something } from ".";
 );
 
 const testMultipleReplacements = (message, code, expectedCode) => {
-  const transformedCode = babel.transform(code, {
+  const transformedCode = transformSync(code, {
     babelrc: false,
+    configFile: false,
     plugins: [
       [
         plugin,
@@ -109,37 +111,7 @@ const testMultipleReplacements = (message, code, expectedCode) => {
 };
 
 testMultipleReplacements(
-  "support importing of files within a module",
-  `
-import foo from "bar";
-require("foobar");
-`,
-  `
-import foo from "baz";
-require(".");
-`,
-);
-
-const testMultipleReplacementsBabel7 = (message, code, expectedCode) => {
-  const transformedCode = babel.transform(code, {
-    babelrc: false,
-    plugins: [
-      [
-        plugin,
-        {
-          replacements: [
-            { replacement: ".", original: "foobar" },
-            { replacement: "baz", original: "bar" },
-          ],
-        },
-      ],
-    ],
-  }).code;
-  assert.equal(transformedCode.trim(), expectedCode.trim(), message);
-};
-
-testMultipleReplacementsBabel7(
-  "support importing of files within a module",
+  "support multiple replacements",
   `
 import foo from "bar";
 require("foobar");
@@ -151,8 +123,9 @@ require(".");
 );
 
 const testRegexp = (message, { original, replacement }, code, expectedCode) => {
-  const transformedCode = babel.transform(code, {
+  const transformedCode = transformSync(code, {
     babelrc: false,
+    configFile: false,
     plugins: [[plugin, { replacements: [{ replacement, original }] }]],
   }).code;
   assert.equal(transformedCode.trim(), expectedCode.trim(), message);
